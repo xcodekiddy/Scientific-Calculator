@@ -1,0 +1,15 @@
+{
+  "name": "scientific-calculator",
+  "version": "1.0.0",
+  "description": "A dependency-free scientific calculator for the browser that evaluates whole expressions.",
+  "private": true,
+  "main": "engine.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": ["calculator", "scientific-calculator", "expression-parser", "shunting-yard"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xcodekiddy/Scientific-Calculator.git"
+  }
+}

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Scientific Calculator</title>
+<meta name="description" content="A scientific calculator that reads whole expressions: trigonometry, logarithms, powers, roots, factorials, memory and history.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#129518;</text></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<main class="calculator">
+  <h1 class="title">Scientific Calculator</h1>
+
+  <div class="display">
+    <div class="flags">
+      <span class="flag" id="angle-flag">DEG</span>
+      <span class="flag" id="second-flag" hidden>2nd</span>
+      <span class="flag" id="memory-flag" hidden>M</span>
+    </div>
+    <div class="expression" id="expression" aria-label="Expression"></div>
+    <output class="result" id="result" aria-live="polite">0</output>
+  </div>
+
+  <div class="keys" id="keys">
+    <!-- Keys carry data-insert (text appended to the expression) or data-action.
+         data-kind="op" marks keys that continue from the previous answer and
+         replace a dangling operator. data-alt-* is the 2nd-function variant. -->
+
+    <button class="key util" data-action="second" aria-pressed="false" id="second-key">2nd</button>
+    <button class="key util" data-action="angle" id="angle-key">DEG</button>
+    <button class="key util" data-action="mem-clear" aria-label="Memory clear">MC</button>
+    <button class="key util" data-action="mem-recall" aria-label="Memory recall">MR</button>
+    <button class="key util" data-action="mem-add" aria-label="Add to memory"
+            data-alt-label="M−" data-alt-action="mem-sub">M+</button>
+
+    <button class="key fn" data-insert="sin(" data-alt-label="sin⁻¹" data-alt-insert="asin(">sin</button>
+    <button class="key fn" data-insert="cos(" data-alt-label="cos⁻¹" data-alt-insert="acos(">cos</button>
+    <button class="key fn" data-insert="tan(" data-alt-label="tan⁻¹" data-alt-insert="atan(">tan</button>
+    <button class="key fn" data-insert="π" aria-label="Pi">π</button>
+    <button class="key fn" data-insert="e" aria-label="Euler's number">e</button>
+
+    <button class="key fn" data-insert="^2" data-kind="op" aria-label="Squared"
+            data-alt-label="x³" data-alt-insert="^3">x²</button>
+    <button class="key fn" data-insert="^" data-kind="op" aria-label="To the power of"
+            data-alt-label="ʸ√x" data-alt-insert="^(1÷">xʸ</button>
+    <button class="key fn" data-insert="√(" aria-label="Square root"
+            data-alt-label="∛" data-alt-insert="∛(">√</button>
+    <button class="key fn" data-insert="ln(" data-alt-label="eˣ" data-alt-insert="e^">ln</button>
+    <button class="key fn" data-insert="log(" data-alt-label="10ˣ" data-alt-insert="10^">log</button>
+
+    <button class="key fn" data-insert="^(−1)" data-kind="op" aria-label="Reciprocal">1/x</button>
+    <button class="key fn" data-insert="!" data-kind="op" aria-label="Factorial">x!</button>
+    <button class="key fn" data-insert="abs(" aria-label="Absolute value">|x|</button>
+    <button class="key fn" data-insert="(" aria-label="Open bracket">(</button>
+    <button class="key fn" data-insert=")" aria-label="Close bracket">)</button>
+
+    <button class="key util danger" data-action="clear" aria-label="Clear all">AC</button>
+    <button class="key num" data-insert="7">7</button>
+    <button class="key num" data-insert="8">8</button>
+    <button class="key num" data-insert="9">9</button>
+    <button class="key op" data-insert="÷" data-kind="op" aria-label="Divide">÷</button>
+
+    <button class="key util" data-action="back" aria-label="Backspace">⌫</button>
+    <button class="key num" data-insert="4">4</button>
+    <button class="key num" data-insert="5">5</button>
+    <button class="key num" data-insert="6">6</button>
+    <button class="key op" data-insert="×" data-kind="op" aria-label="Multiply">×</button>
+
+    <button class="key fn" data-insert="%" data-kind="op" aria-label="Percent">%</button>
+    <button class="key num" data-insert="1">1</button>
+    <button class="key num" data-insert="2">2</button>
+    <button class="key num" data-insert="3">3</button>
+    <button class="key op" data-insert="−" data-kind="op" aria-label="Minus">−</button>
+
+    <button class="key fn" data-insert="Ans" aria-label="Previous answer">Ans</button>
+    <button class="key num" data-insert="0">0</button>
+    <button class="key num" data-insert="." aria-label="Decimal point">.</button>
+    <button class="key op" data-insert="+" data-kind="op" aria-label="Plus">+</button>
+    <button class="key equals" data-action="equals" aria-label="Equals">=</button>
+  </div>
+
+  <details class="history" id="history">
+    <summary>History</summary>
+    <ol class="history-list" id="history-list"></ol>
+    <p class="history-empty" id="history-empty">Nothing yet. Answers you work out will collect here.</p>
+    <button type="button" class="history-clear" id="clear-history">Clear history</button>
+  </details>
+
+  <p class="hint">
+    Type straight into it: digits, <kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd> <kbd>^</kbd>,
+    function names like <code>sin(</code>, <kbd>Enter</kbd> to work it out, <kbd>Esc</kbd> to clear.
+  </p>
+</main>
+
+<noscript>
+  <p class="noscript">This calculator needs JavaScript to run.</p>
+</noscript>
+
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
